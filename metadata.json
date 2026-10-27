@@ -1,0 +1,6 @@
+{
+  "name": "AGRI-FY - AgriLeaf Tobacco (ALT) System",
+  "description": "Automated system for AgriLeaf Tobacco (ALT) to track company hessian packaging, detect bale weights with IoT load sensors, and scan tobacco leaves to determine quality grades.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
