@@ -1,0 +1,24 @@
+# Netlify Configuration for AgriLeaf Tobacco (ALT) System
+# Ensures automated build with Vite and serves bundled JS/CSS with correct MIME types
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Single-Page Application (SPA) routing: redirect all paths to /index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Optimal security & MIME headers for static production assets
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

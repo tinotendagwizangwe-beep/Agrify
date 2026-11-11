@@ -18,9 +18,11 @@ import {
 
 interface StaffLoginPageProps {
   onLoginSuccess: (user: StaffUser) => void;
+  staffList?: StaffUser[];
 }
 
-export const StaffLoginPage: React.FC<StaffLoginPageProps> = ({ onLoginSuccess }) => {
+export const StaffLoginPage: React.FC<StaffLoginPageProps> = ({ onLoginSuccess, staffList }) => {
+  const activeStaff = staffList && staffList.length > 0 ? staffList : INITIAL_STAFF_MEMBERS;
   const [identifier, setIdentifier] = useState('STF-4091');
   const [pin, setPin] = useState('1234');
   const [showPin, setShowPin] = useState(false);
@@ -36,7 +38,7 @@ export const StaffLoginPage: React.FC<StaffLoginPageProps> = ({ onLoginSuccess }
 
     setTimeout(() => {
       // Find matching staff member by staffId or email
-      const matched = INITIAL_STAFF_MEMBERS.find(
+      const matched = activeStaff.find(
         (s) => 
           s.staffId.toLowerCase() === identifier.trim().toLowerCase() ||
           s.email.toLowerCase() === identifier.trim().toLowerCase()
@@ -228,7 +230,7 @@ export const StaffLoginPage: React.FC<StaffLoginPageProps> = ({ onLoginSuccess }
               Quick Operator Profiles
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {INITIAL_STAFF_MEMBERS.slice(0, 4).map((staff) => (
+              {activeStaff.slice(0, 6).map((staff) => (
                 <button
                   key={staff.id}
                   type="button"

@@ -91,6 +91,27 @@ export interface ScaleTelemetryPoint {
   altTagDetected?: string;
 }
 
+export type StaffRole = 
+  | 'Administrator'
+  | 'Weighbridge Operator'
+  | 'Quality & Moisture Inspector'
+  | 'Auction Dispatch Supervisor'
+  | 'Floor Operations Lead'
+  | 'Scale Calibration Technician';
+
+export interface StaffUser {
+  id: string;
+  staffId: string;
+  name: string;
+  role: StaffRole;
+  email: string;
+  assignedStation: string;
+  shift: string;
+  badgeNumber: string;
+  avatarUrl?: string;
+  lastLogin?: string;
+}
+
 export interface WeighInRequest {
   tagId?: string;
   material: MaterialType;
@@ -106,6 +127,64 @@ export interface WeighInRequest {
   wrapIntegrity?: 'Intact' | 'Minor Surface Fray' | 'Tension Alert';
   operatorNotes?: string;
 }
+
+const INITIAL_STAFF_MEMBERS: StaffUser[] = [
+  {
+    id: 'user-01',
+    staffId: 'STF-4091',
+    name: 'Tinotenda Gwizangwe',
+    role: 'Administrator',
+    email: 't.gwizangwe@agrify.tobacco.internal',
+    assignedStation: 'Executive Operations & Central Command',
+    shift: 'Full System & Developer Clearance',
+    badgeNumber: '0001',
+    lastLogin: '2026-10-18T02:47:00Z',
+  },
+  {
+    id: 'user-02',
+    staffId: 'STF-3382',
+    name: 'Dr. Evelyn Moyo',
+    role: 'Quality & Moisture Inspector',
+    email: 'e.moyo@agrify.tobacco.internal',
+    assignedStation: 'Moisture Testing Lab 2',
+    shift: 'Shift A (06:00 - 14:00)',
+    badgeNumber: 'BDG-4411',
+    lastLogin: '2026-10-17T07:30:00Z',
+  },
+  {
+    id: 'user-03',
+    staffId: 'STF-7104',
+    name: 'Tendai Kazembe',
+    role: 'Auction Dispatch Supervisor',
+    email: 't.kazembe@agrify.tobacco.internal',
+    assignedStation: 'Auction Floor Sector D',
+    shift: 'Shift A (06:00 - 14:00)',
+    badgeNumber: 'BDG-7089',
+    lastLogin: '2026-10-17T08:00:00Z',
+  },
+  {
+    id: 'user-04',
+    staffId: 'STF-5520',
+    name: 'Anesu Ndlovu',
+    role: 'Scale Calibration Technician',
+    email: 'a.ndlovu@agrify.tobacco.internal',
+    assignedStation: 'Sensor Maintenance Bay',
+    shift: 'Shift B (14:00 - 22:00)',
+    badgeNumber: 'BDG-1150',
+    lastLogin: '2026-10-16T15:20:00Z',
+  },
+  {
+    id: 'user-05',
+    staffId: 'STF-9901',
+    name: 'Farai Chidzero',
+    role: 'Floor Operations Lead',
+    email: 'f.chidzero@agrify.tobacco.internal',
+    assignedStation: 'Central Warehouse Office',
+    shift: 'General Daytime Shift',
+    badgeNumber: 'BDG-0021',
+    lastLogin: '2026-10-17T06:00:00Z',
+  }
+];
 
 const INITIAL_WEIGHT_SENSORS: WeightSensorScale[] = [
   {
@@ -405,6 +484,7 @@ let balesDatabase: Bale[] = [...INITIAL_BALES];
 let sensorsDatabase: WeightSensorScale[] = [...INITIAL_WEIGHT_SENSORS];
 let cloudLogsDatabase: CloudSyncLog[] = [...INITIAL_CLOUD_LOGS];
 let telemetryPointsDatabase: ScaleTelemetryPoint[] = GENERATE_INITIAL_TELEMETRY();
+let staffDatabase: StaffUser[] = [...INITIAL_STAFF_MEMBERS];
 
 let lastSyncTime = new Date().toISOString();
 
@@ -437,6 +517,85 @@ async function startServer() {
       cloudSyncStatus: 'Connected',
       activeAlertsCount: alerts,
     });
+  });
+
+  // GET /api/users - Fetch staff users
+  app.get('/api/users', (req, res) => {
+    res.json(staffDatabase);
+  });
+
+  // POST /api/users - Create new staff user (Admin only)
+  app.post('/api/users', (req, res) => {
+    const { name, role, email, assignedStation, shift, badgeNumber } = req.body;
+    if (!name || !email) {
+      res.status(400).json({ error: 'Name and email are required' });
+      return;
+    }
+
+    const newId = `user-${Date.now().toString(36)}`;
+    const randomStaffNum = Math.floor(1000 + Math.random() * 9000);
+    const newStaffUser: StaffUser = {
+      id: newId,
+      staffId: req.body.staffId || `STF-${randomStaffNum}`,
+      name: name.trim(),
+      role: role || 'Weighbridge Operator',
+      email: email.trim(),
+      assignedStation: assignedStation || 'Weighbridge Scale #1 (Intake Bay A)',
+      shift: shift || 'Shift A (06:00 - 14:00)',
+      badgeNumber: badgeNumber || `BDG-${Math.floor(1000 + Math.random() * 9000)}`,
+      lastLogin: new Date().toISOString(),
+    };
+
+    staffDatabase.push(newStaffUser);
+
+    // Add Cloud Sync Log
+    const newLog: CloudSyncLog = {
+      id: `LOG-${Math.floor(8000 + Math.random() * 1999)}`,
+      timestamp: new Date().toISOString(),
+      event: 'LOCATION_UPDATE',
+      payloadSizeKb: 0.5,
+      syncLatencyMs: 12,
+      status: 'SUCCESS',
+      cloudNode: 'us-east-cloud-1',
+      details: `Added new staff operator ${newStaffUser.name} (${newStaffUser.staffId}) with role ${newStaffUser.role}.`,
+    };
+    cloudLogsDatabase.unshift(newLog);
+
+    res.status(201).json(newStaffUser);
+  });
+
+  // DELETE /api/users/:id - Remove staff user (Admin only, cannot delete Tinotenda Gwizangwe)
+  app.delete('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+    const targetUser = staffDatabase.find(u => u.id === id || u.staffId === id);
+
+    if (!targetUser) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    // Protect primary root admin
+    if (targetUser.name.toLowerCase() === 'tinotenda gwizangwe' || targetUser.staffId === 'STF-4091') {
+      res.status(403).json({ error: 'Primary system root administrator cannot be deleted' });
+      return;
+    }
+
+    staffDatabase = staffDatabase.filter(u => u.id !== id && u.staffId !== id);
+
+    // Add Cloud Sync Log
+    const newLog: CloudSyncLog = {
+      id: `LOG-${Math.floor(8000 + Math.random() * 1999)}`,
+      timestamp: new Date().toISOString(),
+      event: 'LOCATION_UPDATE',
+      payloadSizeKb: 0.4,
+      syncLatencyMs: 14,
+      status: 'SUCCESS',
+      cloudNode: 'us-east-cloud-1',
+      details: `Removed staff operator ${targetUser.name} (${targetUser.staffId}) from system registry.`,
+    };
+    cloudLogsDatabase.unshift(newLog);
+
+    res.json({ message: 'User removed successfully', user: targetUser });
   });
 
   // GET /api/bales - Fetch all bales with optional filters
