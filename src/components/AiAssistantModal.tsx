@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrainCircuit, AlertTriangle, ShieldCheck, RefreshCw, X, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, RefreshCw, X, CheckCircle2, Activity, Cpu, Layers } from 'lucide-react';
 
 interface AiAssistantModalProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
       const res = await onFetchAnalysis();
       setData(res);
     } catch (err: any) {
-      setError(err?.message || 'Failed to reach AI analysis engine');
+      setError(err?.message || 'Failed to complete telemetry diagnostic audit');
     } finally {
       setLoading(false);
     }
@@ -39,14 +39,13 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
         <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 rounded-lg bg-white border border-slate-200 text-emerald-600 shadow-2xs">
-              <BrainCircuit className="w-5 h-5" />
+              <Activity className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-base font-semibold text-slate-900">Tobacco Leaf Telemetry & Hazard AI Engine</h3>
+                <h3 className="text-base font-semibold text-slate-900">Tobacco Telemetry & Hazard Diagnostic Audit</h3>
                 <span className="flex items-center space-x-1 text-[10px] font-semibold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">
-                  <Sparkles className="w-3 h-3 text-emerald-600" />
-                  <span>Gemini 2.5</span>
+                  <span>Audit Engine v4.2</span>
                 </span>
               </div>
               <p className="text-xs text-slate-500">Moisture anomaly detection, fermentation risk, & ALT hessian wrap safety</p>
@@ -66,19 +65,19 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
           {!data && !loading && !error && (
             <div className="py-10 text-center space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center mx-auto text-slate-700 shadow-2xs">
-                <Sparkles className="w-6 h-6 text-emerald-600" />
+                <Cpu className="w-6 h-6 text-emerald-600" />
               </div>
               <div>
                 <h4 className="text-sm font-semibold text-slate-900">Run Tobacco Telemetry & Leaf Risk Audit</h4>
                 <p className="text-xs text-slate-500 max-w-md mx-auto mt-1">
-                  Gemini will inspect active weighbridge telemetry, ALT Hessian moisture sensor signals, and wrap tension ratings across all tobacco storage bays.
+                  The automated diagnostic engine will inspect active weighbridge telemetry, ALT Hessian moisture sensor signals, and wrap tension ratings across all tobacco storage bays.
                 </p>
               </div>
               <button
                 onClick={handleRunAnalysis}
-                className="px-5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs shadow-xs transition-all active:scale-95"
+                className="px-5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs shadow-xs transition-all active:scale-95 cursor-pointer"
               >
-                Start Tobacco Risk Analysis
+                Start Telemetry Risk Analysis
               </button>
             </div>
           )}
@@ -92,7 +91,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
 
           {error && (
             <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
-              <p className="font-semibold">AI Analysis Error</p>
+              <p className="font-semibold">Diagnostic Audit Error</p>
               <p className="mt-1">{error}</p>
             </div>
           )}
@@ -103,7 +102,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
               {/* Executive Summary */}
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
                 <h4 className="font-semibold text-xs text-slate-900 mb-1 flex items-center space-x-2">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  <Layers className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Executive Technical Summary</span>
                 </h4>
                 <p className="text-slate-700 leading-relaxed text-xs mt-1">
@@ -152,7 +151,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
                 <button
                   onClick={handleRunAnalysis}
                   disabled={loading}
-                  className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium transition-all"
+                  className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium transition-all cursor-pointer"
                 >
                   <RefreshCw className="w-3 h-3 text-slate-500" />
                   <span>Re-run Telemetry Audit</span>

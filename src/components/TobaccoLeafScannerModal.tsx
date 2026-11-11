@@ -258,7 +258,7 @@ export const TobaccoLeafScannerModal: React.FC<TobaccoLeafScannerModalProps> = (
     reader.readAsDataURL(file);
   };
 
-  // Perform AI Grading API call to server.ts or offline engine
+  // Perform Optical Grading API call to server.ts or offline engine
   const triggerGradeAnalysis = async (imageBase64?: string, presetId?: string) => {
     setIsScanning(true);
     setScanError(null);
@@ -322,7 +322,7 @@ export const TobaccoLeafScannerModal: React.FC<TobaccoLeafScannerModalProps> = (
       }
     } catch (err: any) {
       console.error('Scan error:', err);
-      setScanError(err.message || 'Unable to complete AI tobacco leaf grading analysis.');
+      setScanError(err.message || 'Unable to complete tobacco leaf grading analysis.');
     } finally {
       setIsScanning(false);
     }
@@ -357,7 +357,7 @@ export const TobaccoLeafScannerModal: React.FC<TobaccoLeafScannerModalProps> = (
                   Tobacco Leaf Grade Scanner
                 </h2>
                 <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
-                  AgriLeaf AI Vision
+                  Optical Colorimetry System
                 </span>
               </div>
               <p className="text-xs text-slate-300">
@@ -585,7 +585,7 @@ export const TobaccoLeafScannerModal: React.FC<TobaccoLeafScannerModalProps> = (
                   />
                   <div className="flex-1">
                     <p className="font-semibold text-slate-800 text-xs">Image Loaded</p>
-                    <p className="text-[10px] text-slate-500">Ready for automated AI leaf grade classification</p>
+                    <p className="text-[10px] text-slate-500">Ready for automated optical leaf grade classification</p>
                   </div>
                   <button
                     onClick={() => triggerGradeAnalysis(capturedImageData, undefined)}
@@ -607,7 +607,7 @@ export const TobaccoLeafScannerModal: React.FC<TobaccoLeafScannerModalProps> = (
               </div>
               <div>
                 <h4 className="font-bold text-slate-900 text-sm">
-                  AI Leaf Vision In Progress...
+                  Spectral Colorimetry Scan In Progress...
                 </h4>
                 <p className="text-xs text-slate-500 max-w-sm mt-1">
                   Evaluating carotenoid color spectrum, lamina grain elasticity, curing maturity, and AgriLeaf Tobacco (ALT) grading criteria.

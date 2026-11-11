@@ -308,7 +308,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <div className="space-y-1.5">
               
-              {/* AI Leaf Grade Scanner */}
+              {/* Optical Leaf Grade Scanner */}
               <button
                 onClick={() => {
                   onClose();
@@ -319,7 +319,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <Camera className="w-4 h-4 text-amber-600" />
                 <div className="text-left flex-1">
                   <div className="flex items-center space-x-1.5">
-                    <span>AI Leaf Grade Scanner</span>
+                    <span>Optical Leaf Grade Scanner</span>
                     <span className="text-[9px] uppercase font-bold px-1.5 py-0.2 bg-amber-200 text-amber-900 rounded-full">
                       Vision
                     </span>
@@ -343,7 +343,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
               </button>
 
-              {/* Gemini AI Moisture Audit */}
+              {/* Warehouse Moisture & Hazard Audit */}
               <button
                 onClick={() => {
                   onClose();
@@ -353,8 +353,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               >
                 <BrainCircuit className="w-4 h-4 text-indigo-600" />
                 <div className="text-left flex-1">
-                  <div className="font-medium">AI Leaf Hazard Audit</div>
-                  <div className="text-[10px] text-slate-500">Gemini moisture & fermentation check</div>
+                  <div className="font-medium">Warehouse Hazard Audit</div>
+                  <div className="text-[10px] text-slate-500">Bale moisture & fermentation check</div>
                 </div>
               </button>
 

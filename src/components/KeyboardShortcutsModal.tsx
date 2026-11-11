@@ -11,7 +11,7 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({ 
 
   const shortcuts = [
     { key: 'W', description: 'Scale Ingest / Ingest Weigh-In Modal', category: 'Operations' },
-    { key: 'S', description: 'Launch AI Tobacco Leaf Grade Scanner', category: 'Operations' },
+    { key: 'S', description: 'Launch Tobacco Leaf Grade Scanner', category: 'Operations' },
     { key: 'P', description: 'Open Consignment Manifest & Print Clearance', category: 'Operations' },
     { key: 'D', description: 'Switch to Dashboard Overview', category: 'Navigation' },
     { key: 'B', description: 'Switch to Tobacco Bales Ledger', category: 'Navigation' },

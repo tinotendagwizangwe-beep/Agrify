@@ -109,7 +109,7 @@ class SoundFX {
     }
   }
 
-  // AI Leaf Grade Classification Success (pleasant ascending triad)
+  // Optical Leaf Grade Classification Success (pleasant ascending triad)
   public playScanComplete(): void {
     if (this.isMuted) return;
     const ctx = this.initCtx();

@@ -466,10 +466,10 @@ export default function App() {
     }
   };
 
-  // Fetch AI Analysis from Gemini Server API
+  // Fetch Telemetry Diagnostics Analysis
   const handleFetchAiAnalysis = async () => {
     const res = await fetch('/api/ai/analyze', { method: 'POST' });
-    if (!res.ok) throw new Error('AI Server analysis error');
+    if (!res.ok) throw new Error('Diagnostic audit service error');
     return await res.json();
   };
 

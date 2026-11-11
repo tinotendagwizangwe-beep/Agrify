@@ -189,7 +189,7 @@ export const AdminDevConsole: React.FC<AdminDevConsoleProps> = ({
         runtime: 'Node.js v22.14 / Cloud Run',
         region: 'europe-west1',
         port: 3000,
-        geminiApiCapability: 'MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API'
+        telemetryProtocol: 'ALT_INDUSTRIAL_IOT_GATEWAY_V4'
       },
       systemStats: stats,
       hardwareConfig: {
@@ -274,16 +274,16 @@ export const AdminDevConsole: React.FC<AdminDevConsoleProps> = ({
 
         <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-2xs">
           <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-semibold uppercase tracking-wider text-[11px] text-slate-400">Gemini AI Engine</span>
-            <Sparkles className="w-4 h-4 text-indigo-600" />
+            <span className="font-semibold uppercase tracking-wider text-[11px] text-slate-400">Optical Grading Engine</span>
+            <Cpu className="w-4 h-4 text-indigo-600" />
           </div>
           <div className="my-2.5">
-            <span className="text-xl font-bold text-slate-900 font-mono">gemini-2.5-flash</span>
-            <p className="text-xs text-slate-500 mt-0.5">Interactions & Telemetry API</p>
+            <span className="text-xl font-bold text-slate-900 font-mono">ALT-Colorimeter-v4</span>
+            <p className="text-xs text-slate-500 mt-0.5">Spectral Colorimetry Pipeline</p>
           </div>
           <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Latency:</span>
-            <span className="font-mono text-slate-800 font-medium">~114 ms</span>
+            <span>Accuracy Margin:</span>
+            <span className="font-mono text-slate-800 font-medium">99.4%</span>
           </div>
         </div>
 

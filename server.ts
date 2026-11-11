@@ -962,7 +962,7 @@ Format response in valid JSON with keys: "summary" (string), "alerts" (array of 
     } catch (err: any) {
       console.error('Gemini API error:', err);
       res.status(500).json({
-        error: 'Failed to generate AI analysis',
+        error: 'Failed to generate diagnostic analysis',
         details: err?.message || String(err)
       });
     }

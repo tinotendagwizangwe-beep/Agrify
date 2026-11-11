@@ -251,10 +251,10 @@ export const WeighInModal: React.FC<WeighInModalProps> = ({
                     type="button"
                     onClick={onOpenLeafScanner}
                     className="text-[10px] font-semibold text-amber-800 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 px-2 py-0.5 rounded-md border border-amber-200 transition-colors inline-flex items-center space-x-1"
-                    title="Scan tobacco leaf image with AI to auto-determine grade"
+                    title="Scan tobacco leaf image to auto-determine grade"
                   >
                     <Camera className="w-3 h-3 text-amber-600" />
-                    <span>Scan Leaf with AI</span>
+                    <span>Scan Leaf Grade</span>
                   </button>
                 )}
               </div>

@@ -184,7 +184,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
         {/* Quick Executive Actions */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-          {/* AI Leaf Grade Scanner Action */}
+          {/* Leaf Grade Scanner Action */}
           <button
             onClick={onOpenLeafScanner}
             className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold shadow-xs transition-all active:scale-95"
@@ -218,7 +218,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-800 text-xs font-medium transition-colors shadow-2xs"
           >
             <BrainCircuit className="w-4 h-4 text-emerald-600" />
-            <span>AI Risk Audit</span>
+            <span>Hazard Audit</span>
           </button>
 
           <button
@@ -570,8 +570,8 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
           <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
             <span className="font-semibold text-slate-800 flex items-center space-x-1">
-              <Sparkles className="w-3 h-3 text-emerald-600" />
-              <span>AI Curing Protocol</span>
+              <Droplets className="w-3 h-3 text-emerald-600" />
+              <span>Curing Protocol</span>
             </span>
             <p className="text-[11px] text-slate-500 leading-relaxed">
               Tobacco bales above 15.5% moisture must be moved to conditioning fans within 4 hours to eliminate mould and leaf darkening risks.
